@@ -1,1 +1,2 @@
-rr
+        // string s;
+        // cin>>s;

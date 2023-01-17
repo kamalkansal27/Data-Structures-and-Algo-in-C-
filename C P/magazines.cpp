@@ -1,36 +1,46 @@
+
 #include<bits/stdc++.h>
 using namespace std;
-
-int solve(int n, string s, int arr[]){
-    int ans = 0;
-    for(int i=1;i<n;i++){
-        if(s[i] == '1' and arr[i-1] > arr[i] and s[i-1] == '0'){
-            ans += arr[i-1];
-            s[i] = '0';
-        }
-    }
-    return ans;
-}
-
-int main(){
-
-    int t;
+#define ll long long
+int main()
+{
+    ll t, n, ans, i, j, min_v;
+    string a;
+    
     cin>>t;
-
-    while(t--){
-        int n;
+    
+    for(;t--;)
+    {
         cin>>n;
-
-        string s;
-        cin>>s;
-
-        int arr[n];
-        for(int i=0;i<n;i++){
-            cin>>arr[i];
+        cin>>a;
+        
+        ll box[n];
+        
+        for(i=0; i<n; i++){
+            cin>>box[i];
         }
-
-        cout<<solve(n, s, arr)<<endl;
+        ans=0;
+        for(i=n-1; i>=0; ){
+            
+            if(a[i]=='1'){
+                min_v=box[i];
+                while(i>=0){
+                    min_v=min(min_v, box[i]);
+                    if(a[i]=='1'){
+                        ans=ans+box[i];
+                        i--;
+                    }else{
+                        ans=ans+box[i];
+                        i--;
+                        ans=ans-min_v;
+                        break;
+                    }
+                }
+            }else{
+                i--;
+            }
+        }
+        
+        cout<<ans<<"\n";
     }
-
-    return 0;
 }
