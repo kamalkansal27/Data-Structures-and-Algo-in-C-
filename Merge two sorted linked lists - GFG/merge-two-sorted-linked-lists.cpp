@@ -82,25 +82,31 @@ struct Node {
 };
 */
 //Function to merge two sorted linked list.
-Node* sortedMerge(Node* list1, Node* list2)  
+Node* sortedMerge(Node* head1, Node* head2)  
 {  
-    if(list1==0) return list2;
-    if(list2==0) return list1;
-    //Choose the smaller one initilly
-    if(list1->data > list2->data) swap(list1,list2);
-    Node* res = list1;
-    //Until both the lists are ended
-    while(list1 != NULL && list2 !=NULL){
-        Node* temp = NULL;
-        //Keep adding l1 while l1 is smaller
-        while(list1 != NULL && list1->data <= list2->data){
-            temp = list1;
-            list1 = list1->next;
-        }
-        //As l2 is now the smaller one
-        temp->next = list2;
-        //Swap l1 and l2 for next iteration
-        swap(list1,list2);
+    Node* l1 = NULL;
+    Node* l2 = NULL;
+    Node* prev = NULL;
+    Node* head = NULL;
+    if(head1->data < head2->data) {
+        l1 = head1; 
+        l2 = head2; 
+        head = head1;
     }
-    return res;
+    else {
+        l1 = head2; 
+        l2 = head1; 
+        head = head2;
+    }
+    while(l1 != NULL and l2 != NULL){
+        while(l1 != NULL and l1->data <= l2->data){
+            prev = l1;
+            l1 = l1->next;
+        }
+        prev->next = l2;
+        Node* temp = l1;
+        l1 = l2;
+        l2 = temp;
+    }
+    return head;
 }  
